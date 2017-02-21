@@ -24,7 +24,13 @@ class Client(object):
 		elements = soup.find_all("div", "featured-links-item")
 		resultats = []
 		for element in elements:
-			resultats.append(element.find("time")["datetime"])
+			data = element.find("time")["datetime"]
+			title = element.find("span", "flink-title")
+			if title:
+				title = title.text
+			else:
+				title = "Sense Titol"
+			resultats.append((data, title))
 		return resultats
 
 	def main(self):
